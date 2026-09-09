@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Química Sem Mistério</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,500&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --paper: #F1F0EC;
+    --paper-2: #E7E4DC;
+    --ink: #16171D;
+    --ink-soft: #62636E;
+    --flame: #FF4D2E;
+    --teal: #00B8A0;
+    --violet: #7C5CFC;
+    --sulfur: #F2B705;
+    --line: rgba(20,33,61,0.14);
+    --radius-note: 3px;
+  }
+
+  *{ box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    margin:0;
+    background:var(--paper);
+    color:var(--ink);
+    font-family:'IBM Plex Sans', sans-serif;
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  a{ color:inherit; }
+
+  .wrap{
+    max-width:1040px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+
+  /* ---------- NAV ---------- */
+  nav.wrap{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:28px;
+    padding-bottom:28px;
+  }
+
+  .brand{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.15rem;
+    letter-spacing:-0.01em;
+  }
+
+  .brand em{
+    font-style:italic;
+    font-weight:500;
+    color:var(--flame);
+  }
+
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+  }
+
+  .nav-links a{ text-decoration:none; }
+  .nav-links a:hover{ color:var(--ink); }
+
+  .btn-tabela{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'IBM Plex Sans', sans-serif;
+    font-size:0.88rem;
+    font-weight:500;
+    padding:9px 18px;
+    border:1.5px solid var(--ink);
+    text-decoration:none;
+    transition:background 0.15s ease, color 0.15s ease;
+  }
+
+  .btn-tabela:hover{
+    background:var(--flame);
+    border-color:var(--flame);
+    color:var(--paper);
+  }
+
+  /* ---------- HERO ---------- */
+  header.hero{
+    border-top:1.5px solid var(--ink);
+    padding:64px 0 56px;
+  }
+
+  .hero-grid{
+    display:grid;
+    grid-template-columns:1.3fr 0.9fr;
+    gap:48px;
+    align-items:end;
+  }
+
+  h1.title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2.6rem, 5.2vw, 4.1rem);
+    line-height:1.02;
+    margin:0 0 22px;
+    letter-spacing:-0.015em;
+  }
+
+  .hero-sub{
+    font-size:1.08rem;
+    color:var(--ink-soft);
+    max-width:46ch;
+    margin:0;
+  }
+
+  .reaction-panel{
+    border:1.5px solid var(--ink);
+    background:var(--paper-2);
+    padding:26px 24px;
+    font-family:'IBM Plex Sans', sans-serif;
+  }
+
+  .reaction-panel .rp-label{
+    font-size:0.78rem;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+
+  .reaction-eq{
+    font-family:'Fraunces', serif;
+    font-size:1.5rem;
+    font-weight:500;
+    display:flex;
+    align-items:baseline;
+    gap:10px;
+    flex-wrap:wrap;
+  }
+
+  .reaction-eq sub{ font-size:0.65em; }
+  .reaction-eq .arrow{ color:var(--flame); font-weight:600; }
+
+  .rp-note{
+    margin-top:14px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:12px;
+  }
+
+  /* ---------- FEATURED ---------- */
+  section.featured{
+    border-top:1.5px solid var(--ink);
+    padding:52px 0;
+  }
+
+  .section-tag{
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+
+  .feat-grid{
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:28px;
+  }
+
+  .feat-num{
+    font-family:'Fraunces', serif;
+    font-size:1.3rem;
+    color:var(--ink-soft);
+    padding-top:6px;
+  }
+
+  h2.feat-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:2rem;
+    margin:0 0 14px;
+    letter-spacing:-0.01em;
+  }
+
+  .feat-excerpt{
+    color:var(--ink-soft);
+    max-width:62ch;
+    margin:0 0 18px;
+  }
+
+  .chip{
+    display:inline-block;
+    font-size:0.78rem;
+    padding:4px 11px;
+    border-radius:999px;
+    border:1px solid currentColor;
+  }
+
+  .chip.organica{ color:var(--teal); }
+  .chip.geral{ color:var(--flame); }
+  .chip.fisico{ color:var(--violet); }
+  .chip.inorganica{ color:var(--sulfur); }
+
+  .read-link{
+    margin-top:16px;
+    display:inline-block;
+    font-size:0.92rem;
+    text-decoration:underline;
+    text-decoration-color:var(--line);
+    text-underline-offset:4px;
+  }
+  .read-link:hover{ text-decoration-color:currentColor; }
+
+  /* ---------- POSTS GRID ---------- */
+  section.posts{
+    border-top:1.5px solid var(--ink);
+    padding:52px 0 60px;
+  }
+
+  .posts-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border-top:1px solid var(--line);
+    border-left:1px solid var(--line);
+  }
+
+  .post-card{
+    border-right:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+    padding:32px 30px;
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+  }
+
+  .post-meta{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+  }
+
+  .post-meta .aula{
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    font-size:0.95rem;
+  }
+
+  h3.post-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.32rem;
+    margin:0;
+    letter-spacing:-0.005em;
+  }
+
+  .post-excerpt{
+    color:var(--ink-soft);
+    font-size:0.95rem;
+    margin:0;
+  }
+
+  /* ---------- ABOUT STRIP ---------- */
+  section.about{
+    border-top:1.5px solid var(--ink);
+    padding:52px 0;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:48px;
+  }
+
+  h4.about-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.5rem;
+    margin:0 0 14px;
+  }
+
+  .about p{
+    color:var(--ink-soft);
+    margin:0 0 12px;
+    max-width:50ch;
+  }
+
+  .table-hint{
+    display:flex;
+    flex-wrap:wrap;
+    gap:8px;
+    margin-top:8px;
+  }
+
+  .elem{
+    width:52px;
+    height:52px;
+    border:1px solid var(--ink);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    font-family:'IBM Plex Sans', sans-serif;
+    cursor:default;
+    transition:background 0.15s ease, color 0.15s ease;
+    background:var(--paper);
+  }
+
+  .elem .sym{ font-weight:600; font-size:1rem; }
+  .elem .num{ font-size:0.6rem; color:var(--ink-soft); }
+
+  .elem:hover{ background:var(--ink); color:var(--paper); }
+  .elem:hover .num{ color:var(--paper-2); }
+
+  /* ---------- CLICKABLE CARDS ---------- */
+  a.feat-grid, a.post-card{
+    cursor:pointer;
+    text-decoration:none;
+    color:inherit;
+  }
+
+  .post-card:hover .post-title,
+  .feat-grid:hover .feat-title{
+    text-decoration:underline;
+    text-decoration-color:var(--line);
+    text-underline-offset:4px;
+  }
+
+  .rp-link{
+    text-decoration:underline;
+    text-decoration-color:var(--line);
+    text-underline-offset:3px;
+  }
+  .rp-link:hover{ text-decoration-color:currentColor; }
+
+  /* ---------- ARTICLE OVERLAY ---------- */
+  .article-overlay{
+    position:fixed;
+    inset:0;
+    background:var(--paper);
+    overflow-y:auto;
+    transform:translateY(16px);
+    opacity:0;
+    visibility:hidden;
+    transition:opacity 0.22s ease, transform 0.22s ease;
+    z-index:50;
+  }
+
+  .article-overlay.open{
+    opacity:1;
+    transform:translateY(0);
+    visibility:visible;
+  }
+
+  .article-nav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding-top:28px;
+    padding-bottom:28px;
+    border-bottom:1.5px solid var(--ink);
+  }
+
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:0.92rem;
+    color:var(--ink-soft);
+    background:none;
+    border:none;
+    font-family:'IBM Plex Sans', sans-serif;
+    cursor:pointer;
+    padding:0;
+  }
+  .back-link:hover{ color:var(--ink); }
+
+  article.post-body{
+    max-width:680px;
+    margin:0 auto;
+    padding:56px 32px 100px;
+  }
+
+  .article-meta{
+    display:flex;
+    align-items:baseline;
+    gap:12px;
+    font-size:0.85rem;
+    color:var(--ink-soft);
+    margin-bottom:18px;
+  }
+
+  .article-meta .aula{
+    font-family:'Fraunces', serif;
+    color:var(--ink);
+    font-size:1rem;
+  }
+
+  h1.article-title{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:clamp(2rem, 4vw, 2.7rem);
+    line-height:1.08;
+    letter-spacing:-0.015em;
+    margin:0 0 26px;
+  }
+
+  .article-body p{
+    font-size:1.05rem;
+    color:var(--ink);
+    margin:0 0 20px;
+  }
+
+  .article-body p:first-of-type::first-letter{
+    font-family:'Fraunces', serif;
+    font-size:3.1rem;
+    font-weight:600;
+    float:left;
+    line-height:0.85;
+    padding:6px 8px 0 0;
+    color:var(--flame);
+  }
+
+  .article-body .eq-line{
+    font-family:'Fraunces', serif;
+    font-size:1.25rem;
+    border-left:2px solid var(--flame);
+    padding:4px 0 4px 18px;
+    margin:0 0 22px;
+    color:var(--ink);
+  }
+
+  .article-body h2{
+    font-family:'Fraunces', serif;
+    font-weight:600;
+    font-size:1.35rem;
+    margin:34px 0 14px;
+    letter-spacing:-0.005em;
+  }
+
+  /* ---------- FOOTER ---------- */
+  footer{
+    border-top:1.5px solid var(--ink);
+    padding:26px 0 40px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    font-size:0.82rem;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- RESPONSIVE ---------- */
+  @media (max-width:760px){
+    .hero-grid{ grid-template-columns:1fr; }
+    .about{ grid-template-columns:1fr; }
+    .posts-grid{ grid-template-columns:1fr; }
+    .feat-grid{ grid-template-columns:40px 1fr; gap:16px; }
+    nav.wrap{ flex-direction:column; gap:14px; align-items:flex-start; }
+  }
+
+  :focus-visible{
+    outline:2px solid var(--flame);
+    outline-offset:2px;
+  }
+</style>
+</head>
+<body>
+
+<nav class="wrap">
+  <div class="brand">Química <em>Sem Mistério</em></div>
+  <div class="nav-links">
+    <a href="#destaque">Destaque</a>
+    <a href="#aulas">Aulas</a>
+    <a href="#sobre">Sobre</a>
+    <a class="btn-tabela" href="https://pablo-raniere2.vercel.app/" target="_blank" rel="noopener noreferrer">Tabela Sem Mistério</a>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="wrap hero-grid">
+    <div>
+      <h1 class="title">Química explicada do jeito que devia ter sido desde o início.</h1>
+      <p class="hero-sub">Um blog para quem está no ensino médio e quer entender a matéria de verdade — sem fórmula decorada, com exemplos do dia a dia e passo a passo dos porquês.</p>
+    </div>
+    <div class="reaction-panel">
+      <div class="rp-label">reação do dia</div>
+      <div class="reaction-eq">
+        <span>2H<sub>2</sub>O</span>
+        <span class="arrow">→</span>
+        <span>2H<sub>2</sub></span>
+        <span>+</span>
+        <span>O<sub>2</sub></span>
+      </div>
+      <div class="rp-note">Eletrólise da água: energia elétrica quebra a molécula em hidrogênio e oxigênio gasosos. <a class="rp-link" href="#pilha">Veja a aula 03.</a></div>
+    </div>
+  </div>
+</header>
+
+<section class="featured" id="destaque">
+  <div class="wrap">
+    <div class="section-tag">post em destaque</div>
+    <a class="feat-grid" href="https://doi.org/10.21577/0100-4042.20170436" target="_blank" rel="noopener noreferrer">
+      <div class="feat-num">01</div>
+      <div>
+        <span class="chip geral">Química Geral</span>
+        <h2 class="feat-title">Por que a tabela periódica tem esse formato estranho?</h2>
+        <p class="feat-excerpt">Ela não foi desenhada por acaso: cada coluna, linha e degrau segue a forma como os elétrons se organizam ao redor do núcleo. Entender essa lógica é mais rápido — e mais útil — do que decorar a posição de cada elemento.</p>
+        <span class="read-link">Ler o artigo completo</span>
+      </div>
+    </a>
+  </div>
+</section>
+
+<section class="posts" id="aulas">
+  <div class="wrap">
+    <div class="section-tag">últimas aulas</div>
+    <div class="posts-grid">
+
+      <a class="post-card" href="#ligacoes">
+        <div class="post-meta"><span class="aula">Aula 02</span><span>Ligações Químicas</span></div>
+        <h3 class="post-title">Iônica, covalente ou metálica: como saber qual é qual</h3>
+        <p class="post-excerpt">Três perguntas simples resolvem 90% dos casos de prova. A quarta pergunta resolve o resto.</p>
+        <span class="chip inorganica">Química Inorgânica</span>
+      </a>
+
+      <a class="post-card" href="#pilha">
+        <div class="post-meta"><span class="aula">Aula 03</span><span>Eletroquímica</span></div>
+        <h3 class="post-title">O que realmente acontece dentro de uma pilha</h3>
+        <p class="post-excerpt">Elétrons não "somem" — eles viajam. Seguindo esse fio, a pilha de Daniell deixa de ser um desenho decorado.</p>
+        <span class="chip fisico">Físico-Química</span>
+      </a>
+
+      <a class="post-card" href="#termoquimica">
+        <div class="post-meta"><span class="aula">Aula 04</span><span>Termoquímica</span></div>
+        <h3 class="post-title">Reação exotérmica não é "reação com fogo"</h3>
+        <p class="post-excerpt">O critério certo é para onde a energia vai, não o quanto ela aparece. Um exemplo com gelo derretendo muda essa confusão de vez.</p>
+        <span class="chip fisico">Físico-Química</span>
+      </a>
+
+      <a class="post-card" href="#funcoes">
+        <div class="post-meta"><span class="aula">Aula 05</span><span>Funções Orgânicas</span></div>
+        <h3 class="post-title">Álcool, ácido ou éster? Olhe primeiro para o oxigênio</h3>
+        <p class="post-excerpt">Antes de nomear uma cadeia inteira, basta achar o grupo funcional. Um roteiro de três passos para não travar na hora da prova.</p>
+        <span class="chip organica">Química Orgânica</span>
+      </a>
+
+      <a class="post-card" href="#solucoes">
+        <div class="post-meta"><span class="aula">Aula 06</span><span>Soluções</span></div>
+        <h3 class="post-title">Molaridade sem trauma: um jeito de visualizar o cálculo</h3>
+        <p class="post-excerpt">Em vez de decorar a fórmula, a gente desenha o que ela representa — soluto se espalhando num volume de solvente.</p>
+        <span class="chip geral">Química Geral</span>
+      </a>
+
+      <a class="post-card" href="#cinetica">
+        <div class="post-meta"><span class="aula">Aula 07</span><span>Cinética Química</span></div>
+        <h3 class="post-title">O que a temperatura realmente muda numa reação</h3>
+        <p class="post-excerpt">Não é só "esquenta e fica mais rápido". É sobre quantas moléculas conseguem colidir com energia suficiente.</p>
+        <span class="chip fisico">Físico-Química</span>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<section class="about" id="sobre">
+  <div>
+    <h4 class="about-title">Sobre o blog</h4>
+    <p>Química Sem Mistério nasceu de uma ideia simples: nenhum conteúdo de química precisa soar como um conjunto de regras para decorar. Cada aula parte de uma pergunta real de quem está estudando para o ensino médio ou para o vestibular.</p>
+    <p>Passe o cursor sobre os elementos ao lado — cada um deles já apareceu em alguma aula publicada aqui.</p>
+  </div>
+  <div>
+    <div class="table-hint">
+      <div class="elem"><span class="sym">H</span><span class="num">1</span></div>
+      <div class="elem"><span class="sym">O</span><span class="num">8</span></div>
+      <div class="elem"><span class="sym">Na</span><span class="num">11</span></div>
+      <div class="elem"><span class="sym">Cl</span><span class="num">17</span></div>
+      <div class="elem"><span class="sym">Fe</span><span class="num">26</span></div>
+      <div class="elem"><span class="sym">C</span><span class="num">6</span></div>
+      <div class="elem"><span class="sym">Cu</span><span class="num">29</span></div>
+      <div class="elem"><span class="sym">Mg</span><span class="num">12</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="wrap">
+  <span>Química Sem Mistério</span>
+  <span>Feito para quem estuda de verdade.</span>
+</footer>
+
+<div class="article-overlay" id="articleOverlay" role="dialog" aria-modal="true" aria-labelledby="articleTitle">
+  <div class="wrap article-nav">
+    <button class="back-link" id="closeArticle">← Voltar para as aulas</button>
+    <div class="brand">Química <em>Sem Mistério</em></div>
+  </div>
+  <article class="post-body">
+    <div class="article-meta"><span class="aula" id="articleAula"></span><span id="articleTopic"></span></div>
+    <span class="chip" id="articleChip"></span>
+    <h1 class="article-title" id="articleTitle" style="margin-top:14px;"></h1>
+    <div class="article-body" id="articleBody"></div>
+  </article>
+</div>
+
+<script>
+  const articles = {
+    tabela: {
+      aula: "Aula 01", topic: "Química Geral", chip: "geral", chipLabel: "Química Geral",
+      title: "Por que a tabela periódica tem esse formato estranho?",
+      body: `
+        <p>A primeira reação de quem vê a tabela periódica pela primeira vez costuma ser a mesma: aquilo parece um quebra-cabeça sem lógica, cheio de degraus e colunas de tamanhos diferentes. Mas o formato não é estético — ele é um mapa da estrutura eletrônica dos átomos, e cada detalhe tem um motivo.</p>
+        <p>Cada linha da tabela, chamada de período, representa uma nova camada de elétrons sendo preenchida ao redor do núcleo. É por isso que o período 1 tem só dois elementos (hidrogênio e hélio): a primeira camada eletrônica só cabe dois elétrons. Já o período 2 tem oito elementos, porque a segunda camada comporta até oito. A partir do período 4, aparecem os elementos de transição, que preenchem uma subcamada mais interna (d) enquanto a camada mais externa já tem elétrons — por isso essas linhas "esticam" a tabela para o meio, criando o bloco central que a maioria confunde com uma bagunça.</p>
+        <h2>As colunas contam outra história</h2>
+        <p>As colunas, chamadas de famílias ou grupos, reúnem elementos que têm o mesmo número de elétrons na camada mais externa — a camada de valência. Esses são os elétrons que participam das ligações químicas, e é por isso que elementos da mesma coluna se comportam de um jeito parecido. O sódio e o potássio, por exemplo, estão na mesma família porque os dois têm apenas um elétron na última camada, o que os torna igualmente reativos com a água.</p>
+        <p>Os "degraus" que você vê no meio da tabela separam os metais dos não metais. Essa linha diagonal existe porque a eletronegatividade — a tendência de um átomo atrair elétrons — muda de forma gradual ao longo da tabela, e não há um ponto exato onde um metal "vira" um não metal. Os elementos bem próximos a essa linha, como o silício e o germânio, têm comportamento intermediário e são chamados de semimetais — é exatamente essa característica que os torna úteis em semicondutores de chips eletrônicos.</p>
+        <h2>Por que os lantanídeos e actinídeos ficam "soltos" embaixo</h2>
+        <p>Aquelas duas fileiras que ficam separadas na parte de baixo da tabela não são um apêndice sem importância: elas preenchem uma subcamada ainda mais interna (f), o que faria a tabela ficar excessivamente larga se fossem encaixadas no corpo principal. Colocá-las embaixo é só uma escolha de layout para a tabela caber numa folha de papel — quimicamente, elas pertencem ao período 6 e 7, entre os grupos 3 e 4.</p>
+        <h2>Um atalho para estudar</h2>
+        <p>Em vez de memorizar a posição de cada elemento, vale mais a pena entender três movimentos: ao descer numa coluna, os átomos ficam maiores porque ganham camadas; ao andar para a direita num período, os átomos ficam menores porque o núcleo puxa os elétrons com mais força; e a reatividade segue esses mesmos padrões — metais ficam mais reativos ao descer numa coluna, não metais ficam mais reativos ao subir. Com essas três ideias, boa parte das questões de prova sobre a tabela periódica deixam de exigir decoreba e passam a ser dedutíveis a partir da posição do elemento.</p>
+      `
+    },
+    ligacoes: {
+      aula: "Aula 02", topic: "Ligações Químicas", chip: "inorganica", chipLabel: "Química Inorgânica",
+      title: "Iônica, covalente ou metálica: como saber qual é qual",
+      body: `
+        <p>Toda ligação química existe pelo mesmo motivo: átomos "querem" ficar com a última camada de elétrons completa, porque essa configuração — parecida com a dos gases nobres — é mais estável e exige menos energia para se manter. A diferença entre os tipos de ligação está apenas em como cada átomo resolve esse problema de completar sua camada de valência.</p>
+        <p>A primeira pergunta a fazer é: os elementos envolvidos são metais ou não metais? Se um metal se junta a um não metal, o mais comum é a ligação iônica — o metal perde elétrons e o não metal os recebe, formando íons de cargas opostas que se atraem por força eletrostática. É o caso do cloreto de sódio, o sal de cozinha: o sódio doa um elétron para o cloro, viram Na⁺ e Cl⁻, e a atração entre eles forma uma rede cristalina organizada — não uma molécula isolada.</p>
+        <h2>Quando os dois lados querem receber</h2>
+        <p>Se os dois átomos são não metais, nenhum dos dois "quer" doar elétrons — os dois preferem recebê-los, já que não metais têm alta eletronegatividade. A solução é compartilhar: nasce aí a ligação covalente, como na molécula de água, em que o oxigênio compartilha um par de elétrons com cada hidrogênio. Quando o par compartilhado fica igualmente dividido entre os dois átomos (como em O₂ ou N₂), a ligação é covalente apolar; quando um dos átomos puxa o par com mais força, como no caso da própria água, ela é covalente polar.</p>
+        <p>A terceira pergunta separa os metais entre si: quando átomos de metais se juntam, seus elétrons de valência ficam livres para se mover entre todos os núcleos, formando o que se chama de "mar de elétrons" (ou nuvem eletrônica deslocalizada). É essa mobilidade que explica por que os metais conduzem eletricidade mesmo no estado sólido, por que refletem luz (o brilho metálico) e por que podem ser moldados em lâminas e fios sem quebrar — os núcleos deslizam uns sobre os outros sem romper a ligação, já que os elétrons continuam "colando" a estrutura toda.</p>
+        <h2>A quarta pergunta, para os casos difíceis</h2>
+        <p>Às vezes dois não metais têm uma diferença de eletronegatividade tão grande que a ligação, mesmo sendo covalente, fica bastante polarizada — é o caso do ácido fluorídrico (H–F). Nesses casos, olhar para a diferença de eletronegatividade entre os átomos resolve a dúvida: quanto maior a diferença, mais a ligação se aproxima do comportamento iônico, mesmo sem ser uma ligação iônica "pura". Não existe, na prática, uma linha perfeitamente reta separando os três tipos — eles formam um espectro contínuo, e a classificação em três categorias é uma simplificação didática que funciona bem para a grande maioria dos casos do ensino médio.</p>
+        <h2>O que muda nas propriedades observáveis</h2>
+        <p>Essas diferenças na forma da ligação explicam propriedades que parecem soltas quando decoradas separadamente: compostos iônicos formam cristais duros e quebradiços, com pontos de fusão altos, e conduzem eletricidade só quando dissolvidos ou fundidos (porque só aí os íons ficam livres para se mover). Compostos covalentes moleculares costumam ter pontos de fusão mais baixos, porque as forças entre moléculas diferentes são mais fracas que a própria ligação interna. E os metais, além de conduzir eletricidade em qualquer estado sólido, são maleáveis e dúcteis — três propriedades que decorrem diretamente do "mar de elétrons".</p>
+      `
+    },
+    pilha: {
+      aula: "Aula 03", topic: "Eletroquímica", chip: "fisico", chipLabel: "Físico-Química",
+      title: "O que realmente acontece dentro de uma pilha",
+      body: `
+        <p>Uma pilha funciona porque duas reações diferentes acontecem em lugares separados, e a única forma de completar essa separação é os elétrons viajarem por um fio externo. Esse trajeto forçado dos elétrons é exatamente a corrente elétrica que alimenta um aparelho.</p>
+        <p>Na pilha de Daniell, o exemplo clássico de sala de aula, uma barra de zinco fica mergulhada numa solução de sulfato de zinco, e uma barra de cobre fica mergulhada numa solução de sulfato de cobre. Os dois compartimentos são ligados por uma ponte salina (um tubo com uma solução salina em gel) e por um fio condutor externo que liga as duas barras metálicas.</p>
+        <div class="eq-line">Zn(s) → Zn²⁺(aq) + 2e⁻ &nbsp;&nbsp;|&nbsp;&nbsp; Cu²⁺(aq) + 2e⁻ → Cu(s)</div>
+        <h2>Um lado perde, o outro ganha</h2>
+        <p>O zinco tem mais facilidade de perder elétrons do que o cobre — dizemos que o zinco é mais "eletropositivo", ou tem menor potencial de redução. Por isso, os átomos de zinco da barra vão perdendo elétrons e se transformando em íons zinco, que se soltam na solução — esse processo se chama oxidação, e acontece no eletrodo chamado de ânodo. Com o tempo, a barra de zinco literalmente perde massa, ficando mais fina e leve.</p>
+        <p>Os elétrons liberados pelo zinco não ficam parados: eles seguem pelo fio externo até a barra de cobre. Lá, os íons cobre presentes na solução recebem esses elétrons e se depositam como cobre metálico sobre a barra — essa é a redução, que acontece no eletrodo chamado de cátodo. Com o tempo, a barra de cobre ganha massa, porque o cobre metálico vai se acumulando sobre ela.</p>
+        <h2>O papel, muitas vezes esquecido, da ponte salina</h2>
+        <p>Se a ponte salina não existisse, a solução ao redor do zinco ficaria cada vez mais carregada positivamente (excesso de Zn²⁺), e a solução ao redor do cobre ficaria cada vez mais carregada negativamente (falta de Cu²⁺) — e esse desequilíbrio elétrico rapidamente pararia a reação, mesmo com sobra de reagentes. A ponte salina resolve isso deixando ânions migrarem para o lado do zinco e cátions migrarem para o lado do cobre, mantendo as duas soluções eletricamente neutras enquanto a pilha funciona.</p>
+        <h2>Por que a pilha "acaba"</h2>
+        <p>A pilha para de funcionar quando a barra de zinco se desgasta o suficiente ou quando as concentrações das soluções se igualam de um jeito que elimina a diferença de potencial que empurra os elétrons de um lado para o outro. Essa diferença de potencial, medida em volts, é o que o multímetro registra quando conectado aos dois eletrodos — e ela é calculada pela diferença entre os potenciais-padrão de redução do cobre e do zinco, valores tabelados que costumam aparecer prontos nas provas.</p>
+        <h2>Por que isso importa fora da sala de aula</h2>
+        <p>O princípio por trás da pilha de Daniell é o mesmo de qualquer bateria recarregável de celular ou carro elétrico: dois materiais com potenciais de redução diferentes, separados fisicamente, forçando os elétrons a passar por um circuito externo antes de completar a reação. A diferença entre uma pilha comum e uma bateria recarregável está em como os produtos da reação podem ser revertidos aos reagentes originais ao aplicar corrente elétrica de fora — processo chamado de eletrólise, que é, em certo sentido, a pilha funcionando ao contrário.</p>
+      `
+    },
+    termoquimica: {
+      aula: "Aula 04", topic: "Termoquímica", chip: "fisico", chipLabel: "Físico-Química",
+      title: "Reação exotérmica não é \\"reação com fogo\\"",
+      body: `
+        <p>Um erro comum é associar reação exotérmica a "reação violenta" ou "reação com chama", e reação endotérmica a "reação lenta e fria". Essas associações funcionam às vezes, por coincidência, mas não são o critério correto — e isso costuma custar pontos em prova.</p>
+        <p>O critério real é a direção em que a energia se move entre o sistema (as substâncias que reagem) e o ambiente ao redor. Numa reação exotérmica, o sistema libera energia na forma de calor para o ambiente — a variação de entalpia (ΔH) é negativa. Numa reação endotérmica, o sistema absorve energia do ambiente — o ΔH é positivo.</p>
+        <div class="eq-line">ΔH = H<sub>produtos</sub> − H<sub>reagentes</sub></div>
+        <h2>O exemplo do gelo que ajuda a fixar</h2>
+        <p>Pense num gelo derretendo dentro de um copo com água morna. Não existe chama, não existe explosão, e ainda assim essa mudança de estado físico é endotérmica: o gelo está absorvendo calor da água ao redor para quebrar as ligações de hidrogênio que mantêm a estrutura cristalina sólida. Você sente isso na prática quando segura um cubo de gelo e sua mão esfria — o calor está saindo da sua mão (que faz parte do "ambiente" nesse caso) para o gelo.</p>
+        <p>Já uma reação de combustão, como a queima do gás de cozinha, libera energia para o ambiente na forma de calor e luz — por isso o ambiente ao redor esquenta. Essa é uma reação exotérmica, e nesse caso a associação com "fogo" até funciona, mas por acaso, não por definição: existem reações exotérmicas silenciosas, sem chama nenhuma, como a corrosão de um metal ou a neutralização entre um ácido e uma base em solução.</p>
+        <h2>Como isso aparece no gráfico</h2>
+        <p>Em um diagrama de energia, o eixo vertical representa a entalpia e o eixo horizontal representa o "caminho" da reação, do início ao fim. Uma reação exotérmica termina com os produtos num nível de energia mais baixo do que os reagentes — a diferença foi liberada para o ambiente. Numa reação endotérmica, os produtos terminam num nível de energia mais alto — a diferença foi absorvida do ambiente. Aprender a ler esse gráfico é mais confiável do que qualquer associação com temperatura ou chama, porque ele mostra diretamente a grandeza que define o tipo de reação.</p>
+        <h2>De onde vem essa energia, afinal</h2>
+        <p>A energia envolvida numa reação química vem da diferença entre a energia necessária para quebrar as ligações dos reagentes e a energia liberada ao formar as ligações dos produtos. Quebrar ligações sempre consome energia; formar ligações sempre libera energia. Se as ligações formadas nos produtos são, no total, mais fortes (mais estáveis) do que as ligações quebradas nos reagentes, sobra energia — a reação é exotérmica. Se as ligações formadas são mais fracas, falta energia para completar o processo sozinho, e ela precisa ser retirada do ambiente — a reação é endotérmica. Esse raciocínio, e não a temperatura observada, é o que realmente define a classificação.</p>
+      `
+    },
+    funcoes: {
+      aula: "Aula 05", topic: "Funções Orgânicas", chip: "organica", chipLabel: "Química Orgânica",
+      title: "Álcool, ácido ou éster? Olhe primeiro para o oxigênio",
+      body: `
+        <p>Diante de uma molécula orgânica grande, é fácil travar tentando decorar a cadeia inteira. Um caminho mais rápido é ignorar por um instante o tamanho da cadeia de carbono e procurar primeiro o grupo funcional — o conjunto pequeno de átomos que determina o comportamento químico daquela molécula, independentemente de quão longa seja a cadeia ao redor.</p>
+        <p>O primeiro passo é localizar onde está o oxigênio, já que a maioria das funções orgânicas básicas do ensino médio gira em torno dele. Se o oxigênio aparece ligado a um hidrogênio e a um carbono comum (uma hidroxila, -OH, presa a um carbono saturado que não tem outra ligação dupla com oxigênio), a função é álcool — como no etanol, presente nas bebidas e nos combustíveis.</p>
+        <h2>O segundo passo: como o carbono está ligado ao oxigênio</h2>
+        <p>Se existe um carbono ligado a dois oxigênios ao mesmo tempo — um por ligação dupla (chamada de carbonila) e outro por ligação simples com hidrogênio — a função é ácido carboxílico, como no ácido acético do vinagre. É essa dupla ligação com oxigênio que torna o hidrogênio da hidroxila fácil de se soltar em solução aquosa, liberando um H⁺ e dando o caráter ácido à molécula — o mesmo H⁺ que qualquer ácido inorgânico libera, só que vindo de uma origem orgânica.</p>
+        <p>Se esse mesmo carbono com dupla ligação a um oxigênio está ligado a outro oxigênio que, por sua vez, se conecta a outra cadeia de carbono (em vez de a um hidrogênio), a função passa a ser éster — os responsáveis por boa parte dos aromas de frutas artificiais em balas e refrigerantes. Um éster nasce justamente da reação entre um ácido carboxílico e um álcool, com liberação de água — uma reação chamada de esterificação.</p>
+        <h2>E quando o oxigênio nem aparece no grupo principal</h2>
+        <p>Vale notar que nem toda função orgânica depende de oxigênio: aminas têm nitrogênio como átomo central do grupo funcional, e hidrocarbonetos (como os alcanos e alcenos que formam a gasolina) não têm heteroátomo nenhum — só carbono e hidrogênio. Por isso, o primeiro filtro de qualquer identificação deveria ser: existe algum átomo diferente de carbono e hidrogênio na molécula? Se não existir, você já eliminou álcoois, ácidos, ésteres, aminas e boa parte das outras funções, restando apenas os hidrocarbonetos.</p>
+        <h2>Um roteiro de passos, do mais geral ao mais específico</h2>
+        <p>Resumindo em ordem: primeiro, veja se há heteroátomos (oxigênio, nitrogênio, halogênios). Segundo, se houver oxigênio, ache-o e veja se está sozinho ligado a um carbono (álcool, se o carbono for saturado, ou fenol, se estiver ligado a um anel aromático) ou duplicado no mesmo carbono (ácido, aldeído, cetona ou éster, dependendo do que está do outro lado). Terceiro, no caso da carbonila, veja se o outro lado tem hidrogênio (ácido ou aldeído) ou outra cadeia de carbono (éster ou cetona). Esse roteiro, aplicado na ordem certa, resolve a maior parte das questões de identificação de função orgânica sem precisar memorizar cada estrutura isoladamente.</p>
+      `
+    },
+    solucoes: {
+      aula: "Aula 06", topic: "Soluções", chip: "geral", chipLabel: "Química Geral",
+      title: "Molaridade sem trauma: um jeito de visualizar o cálculo",
+      body: `
+        <p>A fórmula da molaridade — mol de soluto dividido pelo volume de solução em litros — costuma ser decorada sem ser entendida, o que faz ela desaparecer da memória exatamente na hora da prova. Vale mais a pena entender o que ela está descrevendo antes de manipular os números.</p>
+        <div class="eq-line">M = n / V &nbsp;&nbsp;(mol de soluto por litro de solução)</div>
+        <p>Imagine uma colher de sal sendo dissolvida em um copo de água. A molaridade descreve o quão "cheia" de soluto está aquela solução, mas de um jeito específico: quantas unidades de soluto (contadas em mol, que é só uma forma de contar uma quantidade enorme de partículas — cerca de 6,02 × 10²³ delas) existem para cada litro de solução.</p>
+        <h2>O truque de visualizar antes de calcular</h2>
+        <p>Se você dissolve a mesma quantidade de sal em um volume menor de água, a solução fica mais concentrada — mais partículas de sal "amontoadas" em cada litro. Se você usa mais água para a mesma quantidade de sal, a solução fica mais diluída — as mesmas partículas espalhadas em mais espaço. A molaridade é só um número que captura essa sensação de "quão cheio".</p>
+        <p>Por isso, antes de aplicar a fórmula, vale desenhar mentalmente (ou no papel) o soluto se espalhando dentro do volume de solvente. Isso ajuda a perceber, por exemplo, por que dobrar o volume de água pela metade da concentração, mesmo sem mudar a quantidade de soluto — um erro comum é achar que a concentração depende só da quantidade de sal, esquecendo o volume.</p>
+        <h2>O que muda quando você dilui uma solução</h2>
+        <p>Diluir uma solução significa adicionar mais solvente sem adicionar mais soluto — a quantidade de mols continua exatamente a mesma, só o volume aumenta. Isso leva a uma relação muito usada em laboratório: M₁V₁ = M₂V₂, em que o produto entre concentração e volume antes da diluição é igual ao produto depois, porque o número de mols (M × V) não mudou. Pensar dessa forma evita decorar a fórmula da diluição como algo separado: ela é apenas a mesma ideia de "quantidade de soluto não muda" escrita de outro jeito.</p>
+        <h2>Aplicando a fórmula com sentido</h2>
+        <p>Com essa imagem em mente, a fórmula deixa de ser um conjunto de letras soltas: o número de mols no numerador é "quanto soluto existe", e o volume no denominador é "em quanto espaço ele está espalhado". Dividir um pelo outro dá exatamente a ideia de concentração que você já visualizou antes de fazer a conta — e qualquer variação da fórmula (encontrar a massa do soluto, converter para outras unidades de concentração como título ou porcentagem) parte desse mesmo raciocínio, só isolando uma variável diferente.</p>
+      `
+    },
+    cinetica: {
+      aula: "Aula 07", topic: "Cinética Química", chip: "fisico", chipLabel: "Físico-Química",
+      title: "O que a temperatura realmente muda numa reação",
+      body: `
+        <p>É comum ouvir que "aumentar a temperatura deixa a reação mais rápida" como se fosse uma regra mágica. Ela funciona na prática, mas entender o porquê evita erros em questões que testam justamente esse raciocínio.</p>
+        <p>Para uma reação química acontecer, as moléculas dos reagentes precisam se chocar umas com as outras com uma energia mínima, chamada de energia de ativação, e numa orientação favorável. Nem toda colisão entre moléculas resulta em reação — a maioria delas é fraca demais ou acontece no ângulo errado, e as moléculas simplesmente se afastam sem reagir, como se tivessem batido e voltado.</p>
+        <h2>O que a temperatura muda de verdade</h2>
+        <p>Aumentar a temperatura faz as moléculas se moverem mais rápido, o que aumenta o número de colisões totais — mas esse não é o efeito mais importante. O efeito principal é que uma fração maior dessas colisões passa a ter energia suficiente para ultrapassar a barreira da energia de ativação. Em outras palavras, a temperatura não faz só "mais colisões acontecerem", ela faz mais colisões serem colisões que efetivamente reagem.</p>
+        <p>Isso explica por que um pequeno aumento de temperatura pode acelerar bastante uma reação: mesmo um acréscimo modesto na energia média das moléculas pode fazer uma parcela bem maior delas ultrapassar aquele limiar mínimo necessário. É por isso que uma regra prática de laboratório diz que, para muitas reações, cada aumento de 10°C aproximadamente dobra a velocidade da reação — um efeito desproporcional ao pequeno aumento de temperatura em si.</p>
+        <h2>Outros fatores que seguem a mesma lógica</h2>
+        <p>Catalisadores, por exemplo, aceleram reações não porque aquecem o sistema, mas porque oferecem um caminho alternativo com uma energia de ativação menor — mais colisões conseguem ultrapassar essa barreira mais baixa, mesmo sem mudança de temperatura. O catalisador participa do mecanismo da reação, mas é regenerado ao final, por isso não aparece como reagente consumido na equação global.</p>
+        <p>A concentração dos reagentes segue um raciocínio parecido, mas atuando sobre o número de colisões, não sobre a energia delas: mais partículas no mesmo volume significa mais encontros por segundo, e portanto mais chances de colisões efetivas — mesmo que a fração de colisões bem-sucedidas continue a mesma. Já o aumento da superfície de contato (como triturar um sólido em pó) expõe mais partículas na superfície disponíveis para colidir, sem alterar nem a energia média nem a concentração.</p>
+        <h2>Juntando os quatro fatores num único raciocínio</h2>
+        <p>Entender esse mecanismo comum — colisões que precisam ultrapassar uma barreira de energia — conecta temperatura, concentração, catalisadores e superfície de contato como variações do mesmo princípio, em vez de regras soltas e independentes. Cada fator age sobre uma parte diferente da mesma ideia: a temperatura muda a energia das colisões, a concentração e a superfície de contato mudam a frequência delas, e o catalisador muda a altura da barreira que precisa ser ultrapassada.</p>
+      `
+    }
+  };
+
+  const overlay = document.getElementById('articleOverlay');
+  const elAula = document.getElementById('articleAula');
+  const elTopic = document.getElementById('articleTopic');
+  const elChip = document.getElementById('articleChip');
+  const elTitle = document.getElementById('articleTitle');
+  const elBody = document.getElementById('articleBody');
+
+  // Cada aula tem sua própria âncora real (#tabela, #ligacoes, #pilha...),
+  // então o link direciona de fato para o artigo certo, funciona com o
+  // botão voltar do navegador e pode ser compartilhado/aberto direto.
+  function renderArticle(id){
+    const data = articles[id];
+    if(!data) return false;
+    elAula.textContent = data.aula;
+    elTopic.textContent = data.topic;
+    elChip.textContent = data.chipLabel;
+    elChip.className = 'chip ' + data.chip;
+    elTitle.textContent = data.title;
+    elBody.innerHTML = data.body;
+    return true;
+  }
+
+  function openFromHash(){
+    const id = location.hash.replace('#', '');
+    if(articles[id]){
+      if(renderArticle(id)){
+        overlay.classList.add('open');
+        overlay.scrollTop = 0;
+        document.body.style.overflow = 'hidden';
+        document.getElementById('closeArticle').focus();
+      }
+    } else {
+      overlay.classList.remove('open');
+      document.body.style.overflow = '';
+    }
+  }
+
+  document.getElementById('closeArticle').addEventListener('click', () => {
+    history.back();
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if(e.key === 'Escape' && overlay.classList.contains('open')) history.back();
+  });
+
+  window.addEventListener('hashchange', openFromHash);
+  window.addEventListener('DOMContentLoaded', openFromHash);
+  openFromHash();
+</script>
+
+</body>
+</html>
